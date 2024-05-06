@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NerdGrid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='grid.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- <link rel="shortcut icon" href="images/icon.png" type="image/x-icon"> -->
+    <style>
+        body{
+             background-color: #6699CC;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="contain">
+            <h1 class="title">
+                NBANerdGrid!
+            </h1>
+        </div>
+    </section>
+    <section class="display">
+        <h2 class="date">
+            {{ gameDate }}
+        </h2>
+    </section>
+    <div class="imgc">
+        <div class="img">
+            <img src= {{ homeLogo }} alt="Home Logo">
+        </div>
+        <h3> Versus </h3>
+        <div class="img">
+            <img src= {{ visitLogo }} alt="Visitor Logo">
+        </div>
+    </div>
+    <section class="grid">
+        <div class = "grids">
+            <table class="grid-container">
+                <tr>
+                    <th></th>
+                    <th>23+ Min Played</th>
+                    <th>5+ Free Throws Made</th>
+                    <th>60%+ Field Goal Percentage</th>
+                  </tr>
+                <tr>
+                    <th><img src= {{ homeLogo }} alt="Home Logo"> <p>(Home)</p></th>
+                    <td>LePookie James</td>
+                    <td>LePookie James</td>
+                    <td>LePookie James</td>
+                </tr>
+                <tr>
+                    <th><img src= {{ visitLogo }} alt="Visitor Logo"> <p>(Away)</p></th>
+                    <td>LePookie James</td>
+                    <td>LePookie James</td>
+                    <td>LePookie James</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+</body>
+</html>
