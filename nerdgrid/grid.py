@@ -28,9 +28,7 @@ response2 = requests.get(url2, headers=headers, params=gameStats)
 gameData = response2.json()
 
 date_string = gameData["response"][0]["date"]["start"]
-# Parse the date string into a datetime object
 date_obj = datetime.fromisoformat(date_string)
-# Format the datetime object as a string without the time part
 formatted_date = date_obj.strftime("%Y-%m-%d")
 
 homeTeam = gameData["response"][0]["teams"]["home"]["name"]
@@ -42,12 +40,14 @@ num_players = len(data["response"])
 minplayed23 = {}
 ftm5 = {}
 fgpct60 = {}
+playerList = []
 
 for i in range(num_players):
     player = data["response"][i]
     firstName = player["player"]["firstname"]
     lastName = player["player"]["lastname"]
     fullName = firstName + " " + lastName
+    playerList.append(fullName)
     
     playerTime = 0
     ftm = 0
@@ -71,7 +71,7 @@ for i in range(num_players):
 @bp.route('/')
 def index():
     db = get_db()
-    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date)
+    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList)
 
 
 
