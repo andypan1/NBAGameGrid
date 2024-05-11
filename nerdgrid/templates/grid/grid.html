@@ -10,7 +10,7 @@
     <!-- <link rel="shortcut icon" href="images/icon.png" type="image/x-icon"> -->
     <style>
         body{
-             background-color: #6699CC;
+             background-color: #B9D9EB;
         }
     </style>
 
@@ -21,7 +21,7 @@
     <section class="hero">
         <div class="contain">
             <h1 class="title">
-                NBANerdGrid!
+                NerdGrid!
             </h1>
         </div>
     </section>
@@ -40,6 +40,9 @@
         </div>
     </div>
     <section class="grid">
+        <div class="counter">
+            
+        </div>
         <div class = "grids">
             <table class="grid-container">
                 <tr>
@@ -51,55 +54,61 @@
                 <tr>
                     <th><img src= {{ homeLogo }} alt="Home Logo"> <p>(Home)</p></th>
                     <td>
-                        <form autocomplete action=""></form>
+                        <form id="form" autocomplete="off" autocomplete action="/checkPlayer1" method="post">
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name" placeholder="Name a Player!" id="name" required>
                             </div>
                             <input type="Submit">
-                        </form>
+                        </form> 
+                        <p id="message"></p>
                     </td>
                     <td>
-                        <form autocomplete action=""></form>
+                        <form id="form1" autocomplete="off" autocomplete action="/checkPlayer2" method="post">
                             <div class="autocomplete" style="width: 200px;">
-                                <input type="text" name="name" placeholder="Name a Player!" id="name1" required>
+                                <input type="text" name="name1" placeholder="Name a Player!" id="name1" required>
                             </div>
                             <input type="Submit">
                         </form>
+                        <p id="message1"></p>
                     </td>
                     <td>
-                    <form autocomplete action=""></form>
-                        <div class="autocomplete" style="width: 200px;">
-                            <input type="text" name="name" placeholder="Name a Player!" id="name2" required>
-                        </div>
-                        <input type="Submit">
-                    </form>
+                        <form id="form2" autocomplete="off" autocomplete action="/checkPlayer3" method="post">
+                            <div class="autocomplete" style="width: 200px;">
+                                <input type="text" name="name2" placeholder="Name a Player!" id="name2" required>
+                            </div>
+                            <input type="Submit">
+                        </form>
+                        <p id="message2"></p>
                     </td>
                 </tr>
                 <tr>
                     <th><img src= {{ visitLogo }} alt="Visitor Logo"> <p>(Away)</p></th>
                     <td>
-                    <form autocomplete action=""></form>
-                        <div class="autocomplete" style="width: 200px;">
-                            <input type="text" name="name" placeholder="Name a Player!" id="name3" required>
-                        </div>
-                        <input type="Submit">
-                    </form>
-                    </td>
-                    <td>
-                        <form autocomplete action=""></form>
+                        <form id="form3" autocomplete="off" autocomplete action="/checkPlayer4" method="post">
                             <div class="autocomplete" style="width: 200px;">
-                                <input type="text" name="name" placeholder="Name a Player!" id="name4" required>
+                                <input type="text" name="name3" placeholder="Name a Player!" id="name3" required>
                             </div>
                             <input type="Submit">
                         </form>
+                        <p id="message3"></p>
+                    </td>
+                    <td>
+                        <form id="form4" autocomplete="off" autocomplete action="/checkPlayer5" method="post">
+                            <div class="autocomplete" style="width: 200px;">
+                                <input type="text" name="name4" placeholder="Name a Player!" id="name4" required>
+                            </div>
+                            <input type="Submit">
+                        </form>
+                        <p id="message4"></p>
                         </td>
                     <td>
-                        <form autocomplete action=""></form>
+                        <form id="form5" autocomplete="off" autocomplete action="/checkPlayer6" method="post">
                             <div class="autocomplete" style="width: 200px;">
-                                <input type="text" name="name" placeholder="Name a Player!" id="name5" required>
+                                <input type="text" name="name5" placeholder="Name a Player!" id="name5" required>
                              </div>
                              <input type="Submit">
                         </form>
+                        <p id="message5"></p>
                     </td>
                 </tr>
             </table>
@@ -179,6 +188,108 @@
     autocomplete(document.getElementById("name3"), players);
     autocomplete(document.getElementById("name4"), players);
     autocomplete(document.getElementById("name5"), players);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form'); 
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name').value;
+            const response = await fetch('/checkPlayer1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message').textContent = message;
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form1'); 
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name1').value;
+            const response = await fetch('/checkPlayer2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name1: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message1').textContent = message;
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form2'); 
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name2').value;
+            const response = await fetch('/checkPlayer3', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name2: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message2').textContent = message;
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form3'); 
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name3').value;
+            const response = await fetch('/checkPlayer4', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name3: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message3').textContent = message;
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form4'); 
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name4').value;
+            const response = await fetch('/checkPlayer5', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name4: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message4').textContent = message;
+        });
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('#form5');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const userInput = document.getElementById('name5').value;
+            const response = await fetch('/checkPlayer6', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({ name5: userInput }),
+            });
+            const message = await response.text();
+            document.getElementById('message5').textContent = message;
+        });
+    });
     </script>
 </body>
 </html>

@@ -85,8 +85,15 @@ table td {
     height: 200px;
     text-align: center;
     background-color: white;
+    position: relative;
 }
 
+table td p{
+  margin-top: 20px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
 table .name{
     width: 125px;
 }

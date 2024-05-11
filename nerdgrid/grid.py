@@ -1,8 +1,8 @@
 import requests
-import json
+import flask
 from datetime import datetime
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, render_template, request, jsonify
 )
 from werkzeug.exceptions import abort
 from nerdgrid.auth import login_required
@@ -68,24 +68,92 @@ for i in range(num_players):
     if float(fgp) >= 60:
         fgpct60[fullName] = player["team"]["nickname"]
 
+
+
+def checkAnswer(dict, player, team):
+    if player in dict and dict[player] == team:
+        return True
+    else:
+        return False
+    
 @bp.route('/')
 def index():
     db = get_db()
-    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList)
+    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList, message = "")
+
+@bp.route('/checkPlayer1', methods=['POST'])
+def checkPlayer1():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name']
+        if checkAnswer(minplayed23, user_player, gameData["response"][0]["teams"]["home"]["nickname"]):
+            message = "Correct!"
+        else:
+            message = "Incorrect!"
+
+    return message
 
 
+@bp.route('/checkPlayer4', methods=['POST'])
+def checkPlayer4():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name3']
+        if checkAnswer(minplayed23, user_player, gameData["response"][0]["teams"]["visitors"]["nickname"]):
+            message = "Correct!"
+        else:
+            message = "Incorrect!"
 
-# for i in range(3):
-#     min23guess = input("Name a player that is on the Atlanta Hawks and played 23+ minutes: ")
-#     min23guess2 = input("Name a player that is on the Orlando Magic and played 23+ minutes: ")
-#     if minplayed23.get(min23guess, "").lower() == "hawks" and minplayed23.get(min23guess2, "").lower() == "magic":
-#         print("gj lil nigga")
-#         break
-#     else:
-#         print("no")
-# else:
-#     print("your idiot")
+    return message
 
+
+@bp.route('/checkPlayer2', methods=['POST'])
+def checkPlayer2():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name1']
+        if checkAnswer(ftm5, user_player, gameData["response"][0]["teams"]["home"]["nickname"]):
+            message = "Correct!"
+        else:
+            message = "Incorrect!"
+
+    return message
+
+@bp.route('/checkPlayer5', methods=['POST'])
+def checkPlayer5():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name4']
+        if checkAnswer(ftm5, user_player, gameData["response"][0]["teams"]["visitors"]["nickname"]):
+            message = "Correct!"
+        else:
+            message= "Incorrect!"
+
+    return message
+
+@bp.route('/checkPlayer3', methods=['POST'])
+def checkPlayer3():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name2']
+        if checkAnswer(fgpct60, user_player, gameData["response"][0]["teams"]["home"]["nickname"]):
+            message = "Correct!"
+        else:
+            message= "Incorrect!"
+
+    return message
+
+@bp.route('/checkPlayer6', methods=['POST'])
+def checkPlayer6():
+    message = ""
+    if request.method == 'POST':
+        user_player = request.form['name5']
+        if checkAnswer(fgpct60, user_player, gameData["response"][0]["teams"]["visitors"]["nickname"]):
+            message = "Correct!"
+        else:
+            message= "Incorrect!"
+
+    return message
 
 
 
