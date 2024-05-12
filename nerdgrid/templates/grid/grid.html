@@ -40,10 +40,11 @@
         </div>
     </div>
     <section class="grid">
-        <div class="counter">
-            
-        </div>
         <div class = "grids">
+            <div class="counter">
+                <p class="count"></p>
+                <p class="text"> Guesses Left</p>
+            </div>
             <table class="grid-container">
                 <tr>
                     <th></th>
@@ -58,7 +59,7 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name" placeholder="Name a Player!" id="name" required>
                             </div>
-                            <input type="Submit">
+                            <input type="Submit" id = s1>
                         </form> 
                         <p id="message"></p>
                     </td>
@@ -67,7 +68,7 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name1" placeholder="Name a Player!" id="name1" required>
                             </div>
-                            <input type="Submit">
+                            <input type="Submit" id = s2>
                         </form>
                         <p id="message1"></p>
                     </td>
@@ -76,7 +77,7 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name2" placeholder="Name a Player!" id="name2" required>
                             </div>
-                            <input type="Submit">
+                            <input type="Submit" id = s3>
                         </form>
                         <p id="message2"></p>
                     </td>
@@ -88,7 +89,7 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name3" placeholder="Name a Player!" id="name3" required>
                             </div>
-                            <input type="Submit">
+                            <input type="Submit" id = s4>
                         </form>
                         <p id="message3"></p>
                     </td>
@@ -97,7 +98,7 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name4" placeholder="Name a Player!" id="name4" required>
                             </div>
-                            <input type="Submit">
+                            <input type="Submit" id = s5>
                         </form>
                         <p id="message4"></p>
                         </td>
@@ -106,12 +107,15 @@
                             <div class="autocomplete" style="width: 200px;">
                                 <input type="text" name="name5" placeholder="Name a Player!" id="name5" required>
                              </div>
-                             <input type="Submit">
+                             <input type="Submit" id = s6>
                         </form>
                         <p id="message5"></p>
                     </td>
                 </tr>
             </table>
+            <div class="result">
+                <p class="text1">Incomplete Grid!</p>
+            </div>
         </div>
     </section>
     <script>
@@ -189,9 +193,16 @@
     autocomplete(document.getElementById("name4"), players);
     autocomplete(document.getElementById("name5"), players);
 
+    let guessesLeft = 8; 
+    let correctNum = 0;
+    document.querySelector('.count').textContent = guessesLeft;
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#form'); 
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name');
+        const submitButton = document.getElementById('s1');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name').value;
@@ -204,11 +215,37 @@
             });
             const message = await response.text();
             document.getElementById('message').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#form1'); 
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name1');
+        const submitButton = document.getElementById('s2');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name1').value;
@@ -221,11 +258,37 @@
             });
             const message = await response.text();
             document.getElementById('message1').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('#form2'); 
+        const form = document.querySelector('#form2');
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name2');
+        const submitButton = document.getElementById('s3');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name2').value;
@@ -238,11 +301,37 @@
             });
             const message = await response.text();
             document.getElementById('message2').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('#form3'); 
+        const form = document.querySelector('#form3');
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name3');
+        const submitButton = document.getElementById('s4');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name3').value;
@@ -255,11 +344,37 @@
             });
             const message = await response.text();
             document.getElementById('message3').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('#form4'); 
+        const form = document.querySelector('#form4');
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name4');
+        const submitButton = document.getElementById('s5'); 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name4').value;
@@ -272,10 +387,37 @@
             });
             const message = await response.text();
             document.getElementById('message4').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
+    
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#form5');
+        const allInputs = document.querySelectorAll('input[type="text"]'); 
+        const submitButtons = document.querySelectorAll('input[type="submit"]'); 
+        const inputField = document.getElementById('name5');
+        const submitButton = document.getElementById('s6');
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const userInput = document.getElementById('name5').value;
@@ -288,6 +430,28 @@
             });
             const message = await response.text();
             document.getElementById('message5').textContent = message;
+            if (message.trim() === "Correct!") {
+                inputField.disabled = true;
+                submitButton.disabled = true;
+                correctNum++;
+            }
+            guessesLeft--;
+            document.querySelector('.count').textContent = guessesLeft;
+            if (guessesLeft === 0) {
+                allInputs.forEach(input => {
+                    input.disabled = true;
+                });
+                submitButtons.forEach(button => {
+                    button.disabled = true;
+                });
+                const textElement = document.querySelector('.text1');
+                textElement.style.visibility = 'visible';
+            }
+            if(correctNum === 6){
+                const textElement = document.querySelector('.text1');
+                textElement.textContent = "Complete Grid!"
+                textElement.style.visibility = 'visible';
+            }
         });
     });
     </script>

@@ -51,6 +51,7 @@ body{
     color: black;
     text-align: center;
 }
+
 .display h2{
     font-size: 2rem;
     line-height: 1.2;
@@ -65,10 +66,42 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.counter{
+  right: 150px;
+  position: relative;
+  text-align: center;
+}
+
+.result{
+  left: 150px;
+  position: relative;
+  text-align: center;
+}
+
+.result .text1{
+  font-weight: 600;
+  font-size: 2rem;
+  color: black;
+  visibility: hidden;
+}
+
+.counter .count{
+  font-weight: 600;
+  font-size: 5rem;
+  color: white;
+  margin: -30px;
+}
+
+.counter .text{
+  font-weight: 600;
+  font-size: 2rem;
+  color: black;
+}
+
 .grid-container {
     padding: 10px;
     border-collapse: collapse;
-    margin-right: 150px; /* Adjust the margin as needed */
 }
 .grid-container img{
     padding: 10px;
@@ -79,8 +112,8 @@ table th {
     padding: 5px;
 }
 table td {
-    border: 1px solid black;
-    padding: 8px; /* Add padding for better spacing */
+    border: 2px solid black;
+    padding: 8px; 
     width: 200px;
     height: 200px;
     text-align: center;
@@ -122,6 +155,11 @@ input[type=Submit] {
   color: #fff;
   cursor: pointer;
 }
+
+input[type=Submit]:disabled {
+  cursor: default;
+}
+
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;

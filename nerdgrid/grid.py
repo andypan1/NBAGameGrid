@@ -90,7 +90,6 @@ def checkPlayer1():
             message = "Correct!"
         else:
             message = "Incorrect!"
-
     return message
 
 
@@ -103,7 +102,6 @@ def checkPlayer4():
             message = "Correct!"
         else:
             message = "Incorrect!"
-
     return message
 
 
@@ -116,7 +114,6 @@ def checkPlayer2():
             message = "Correct!"
         else:
             message = "Incorrect!"
-
     return message
 
 @bp.route('/checkPlayer5', methods=['POST'])
@@ -128,7 +125,6 @@ def checkPlayer5():
             message = "Correct!"
         else:
             message= "Incorrect!"
-
     return message
 
 @bp.route('/checkPlayer3', methods=['POST'])
@@ -140,7 +136,6 @@ def checkPlayer3():
             message = "Correct!"
         else:
             message= "Incorrect!"
-
     return message
 
 @bp.route('/checkPlayer6', methods=['POST'])
@@ -152,7 +147,6 @@ def checkPlayer6():
             message = "Correct!"
         else:
             message= "Incorrect!"
-
     return message
 
 
