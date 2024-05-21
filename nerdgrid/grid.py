@@ -2,13 +2,17 @@ import requests
 import flask
 from datetime import datetime
 from flask import (
-    Blueprint, render_template, request, jsonify
+    Blueprint, render_template, request, jsonify, g, session, redirect, url_for
 )
 from werkzeug.exceptions import abort
 from nerdgrid.auth import login_required
 from nerdgrid.db import get_db
 
+import sqlite3
+
+from nerdgrid.auth import bp as auth_bp
 bp = Blueprint('grid', __name__)
+bp.register_blueprint(auth_bp)
 
 url = "https://api-nba-v1.p.rapidapi.com/players/statistics"
 url2 = "https://api-nba-v1.p.rapidapi.com/games"
@@ -75,11 +79,20 @@ def checkAnswer(dict, player, team):
         return True
     else:
         return False
-    
-@bp.route('/')
-def index():
+
+
+def streak(user_id):
     db = get_db()
-    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList, message = "")
+    user = db.execute('SELECT streak FROM user WHERE id = ?', (user_id,)).fetchone()
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+    return jsonify({'streak': user['streak']})
+
+
+@bp.route('/')
+@login_required
+def index():
+    return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList, message = "",  user_id=g.user['id'])
 
 @bp.route('/checkPlayer1', methods=['POST'])
 def checkPlayer1():
@@ -135,7 +148,7 @@ def checkPlayer3():
         if checkAnswer(fgpct60, user_player, gameData["response"][0]["teams"]["home"]["nickname"]):
             message = "Correct!"
         else:
-            message= "Incorrect!"
+            message = "Incorrect!"
     return message
 
 @bp.route('/checkPlayer6', methods=['POST'])
@@ -146,9 +159,22 @@ def checkPlayer6():
         if checkAnswer(fgpct60, user_player, gameData["response"][0]["teams"]["visitors"]["nickname"]):
             message = "Correct!"
         else:
-            message= "Incorrect!"
+            message = "Incorrect!"
     return message
 
+@bp.route('/get_streak', methods=['GET'])
+def get_streak():
+    user_id = request.args.get('id')
+
+    conn = sqlite3.connect('schema.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT streak FROM user WHERE id = ?", (user_id,))
+    streak = cursor.fetchone()[0]
+
+    conn.close()
+
+    return jsonify({'streak': streak})
 
 
 

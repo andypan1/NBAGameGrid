@@ -86,6 +86,20 @@ body{
   visibility: hidden;
 }
 
+.result .text22{
+  font-weight: 600;
+  font-size: 2rem;
+  color: black;
+  visibility: hidden;
+}
+
+.result .time{
+  font-weight: 600;
+  font-size: 2rem;
+  color: white;
+  visibility: hidden;
+}
+
 .counter .count{
   font-weight: 600;
   font-size: 5rem;
@@ -93,10 +107,25 @@ body{
   margin: -30px;
 }
 
+
 .counter .text{
   font-weight: 600;
   font-size: 2rem;
   color: black;
+}
+
+.counter .text2{
+  font-weight: 600;
+  font-size: 2rem;
+  color: black;
+  margin-top: 70px;
+}
+
+.counter .num{
+  font-weight: 600;
+  font-size: 5rem;
+  color: white;
+  margin: -30px;
 }
 
 .grid-container {

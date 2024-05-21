@@ -21,29 +21,32 @@
     <section class="hero">
         <div class="contain">
             <h1 class="title">
-                NerdGrid!
+                NBAGameGrid
             </h1>
         </div>
     </section>
-    <section class="display">
-        <h2 class="date">
-            {{ gameDate }}
-        </h2>
-    </section>
-    <div class="imgc">
-        <div class="img">
-            <img src= {{ homeLogo }} alt="Home Logo">
-        </div>
-        <h3> Versus </h3>
-        <div class="img">
-            <img src= {{ visitLogo }} alt="Visitor Logo">
+    <div class="container">
+        <section class="display">
+            <h2 class="date">
+                {{ gameDate }}
+            </h2>
+        </section>  
+        <div class="imgc">
+            <div class="img">
+                <img src= {{ homeLogo }} alt="Home Logo">
+            </div>
+            <h3> Versus </h3>
+            <div class="img">
+                <img src= {{ visitLogo }} alt="Visitor Logo">
+            </div>
         </div>
     </div>
     <section class="grid">
         <div class = "grids">
             <div class="counter">
+                <p class="text"> Guesses Left:</p>
                 <p class="count"></p>
-                <p class="text"> Guesses Left</p>
+                <p class="text2"> Your Streak: <p class="num">7</p> </p>
             </div>
             <table class="grid-container">
                 <tr>
@@ -115,6 +118,8 @@
             </table>
             <div class="result">
                 <p class="text1">Incomplete Grid!</p>
+                <p class="text22">Time Until Next Grid:</p>
+                <p class="time" id ="countdown"></p>
             </div>
         </div>
     </section>
@@ -184,6 +189,39 @@
             closeAllLists(e.target);
         });
     }
+    function updateTime() {
+        var now = new Date();
+        var midnight = new Date(now);
+        midnight.setHours(24, 0, 0, 0);
+        var timeUntilMidnight = midnight - now;
+
+        var hours = Math.floor(timeUntilMidnight / (1000 * 60 * 60));
+        var minutes = Math.floor((timeUntilMidnight % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeUntilMidnight % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").textContent = hours.toString().padStart(2, '0') + ":" +
+        minutes.toString().padStart(2, '0') + ":" +
+        seconds.toString().padStart(2, '0');
+    }
+    setInterval(updateTime, 1000);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userId = ('{{ user_id|tojson|safe  }}');  // Get user ID from Flask context
+
+        fetch(`/streak/${userId}`)
+           .then(response => response.json())
+            .then(data => {
+                if (data.streak !== undefined) {
+                    document.querySelector('.num').textContent = data.streak;
+                } else {
+                    document.querySelector('.text').textContent = 'Error: User not found';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching streak:', error);
+                // document.querySelector('.text').textContent = 'Error fetching streak';
+        });
+    });
     
     var players = JSON.parse('{{ playersList|tojson|safe }}');
     autocomplete(document.getElementById("name"), players);
@@ -193,6 +231,7 @@
     autocomplete(document.getElementById("name4"), players);
     autocomplete(document.getElementById("name5"), players);
 
+    
     let guessesLeft = 8; 
     let correctNum = 0;
     document.querySelector('.count').textContent = guessesLeft;
@@ -230,12 +269,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });
@@ -273,12 +320,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });
@@ -316,12 +371,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });
@@ -359,12 +422,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });
@@ -402,12 +473,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });
@@ -445,12 +524,20 @@
                     button.disabled = true;
                 });
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
                 const textElement = document.querySelector('.text1');
+                const textElement2 = document.querySelector('.text22');
+                const textElement3 = document.querySelector('.time');
                 textElement.textContent = "Complete Grid!"
                 textElement.style.visibility = 'visible';
+                textElement2.style.visibility = 'visible';
+                textElement3.style.visibility = 'visible';
             }
         });
     });

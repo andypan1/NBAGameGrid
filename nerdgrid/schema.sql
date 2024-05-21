@@ -5,3 +5,5 @@ CREATE TABLE user (
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL
 );
+
+ALTER TABLE user ADD COLUMN streak INTEGER DEFAULT 0;
