@@ -256,6 +256,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -268,6 +279,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {
@@ -326,6 +345,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -338,6 +368,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {
@@ -396,6 +434,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -408,6 +457,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {
@@ -466,6 +523,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -478,6 +546,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {
@@ -536,6 +612,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -548,6 +635,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {
@@ -606,6 +701,17 @@
             guessesLeft--;
             document.querySelector('.count').textContent = guessesLeft;
             if (guessesLeft === 0) {
+                fetch('/' + userId + '/streak/reset', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 allInputs.forEach(input => {
                     input.disabled = true;
                 });
@@ -618,6 +724,14 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_s;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
             }
             if(correctNum === 6){
                 fetch('/' + userId + '/streak/update', {

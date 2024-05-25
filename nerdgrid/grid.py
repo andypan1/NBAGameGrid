@@ -120,6 +120,25 @@ def update_streak(id):
     return jsonify({'new_streak': new}), 200
 
 
+@bp.route('/<int:id>/streak/reset', methods=['POST'])
+def update_streak2(id):
+    db = get_db()
+    user = db.execute(
+        'SELECT u.id, streak'
+        ' FROM user u'
+        ' WHERE u.id = ?',
+        (id,)
+        ).fetchone()
+    user_dict = dict(user)
+    streak_value = user_dict['streak']
+    new = 0
+    db.execute(
+            'UPDATE user SET streak = ? WHERE id = ?',
+            (new, id)
+        )
+    db.commit()
+    return jsonify({'new_s': new}), 200
+
 @bp.route('/checkPlayer1', methods=['POST'])
 def checkPlayer1():
     message = ""
