@@ -80,19 +80,45 @@ def checkAnswer(dict, player, team):
     else:
         return False
 
-
-def streak(user_id):
-    db = get_db()
-    user = db.execute('SELECT streak FROM user WHERE id = ?', (user_id,)).fetchone()
-    if user is None:
-        return jsonify({'error': 'User not found'}), 404
-    return jsonify({'streak': user['streak']})
-
-
 @bp.route('/')
 @login_required
 def index():
     return render_template('grid/grid.html', homeLogo = homeTeamLogo, visitLogo = visitTeamLogo, gameDate = formatted_date, playersList = playerList, message = "",  user_id=g.user['id'])
+
+
+@bp.route('/<int:id>/streak', methods=['GET'])
+def streak(id):
+    db = get_db()
+    user = db.execute(
+        'SELECT u.id, streak'
+        ' FROM user u'
+        ' WHERE u.id = ?',
+        (id,)
+        ).fetchone()
+    user_dict = dict(user)
+    streak_value = user_dict['streak']
+    return jsonify({'streak': streak_value})
+
+
+@bp.route('/<int:id>/streak/update', methods=['POST'])
+def update_streak(id):
+    db = get_db()
+    user = db.execute(
+        'SELECT u.id, streak'
+        ' FROM user u'
+        ' WHERE u.id = ?',
+        (id,)
+        ).fetchone()
+    user_dict = dict(user)
+    streak_value = user_dict['streak']
+    new = streak_value + 1
+    db.execute(
+            'UPDATE user SET streak = ? WHERE id = ?',
+            (new, id)
+        )
+    db.commit()
+    return jsonify({'new_streak': new}), 200
+
 
 @bp.route('/checkPlayer1', methods=['POST'])
 def checkPlayer1():
@@ -162,19 +188,7 @@ def checkPlayer6():
             message = "Incorrect!"
     return message
 
-@bp.route('/get_streak', methods=['GET'])
-def get_streak():
-    user_id = request.args.get('id')
 
-    conn = sqlite3.connect('schema.db')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT streak FROM user WHERE id = ?", (user_id,))
-    streak = cursor.fetchone()[0]
-
-    conn.close()
-
-    return jsonify({'streak': streak})
 
 
 

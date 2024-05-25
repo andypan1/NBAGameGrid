@@ -204,24 +204,6 @@
         seconds.toString().padStart(2, '0');
     }
     setInterval(updateTime, 1000);
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const userId = ('{{ user_id|tojson|safe  }}');  // Get user ID from Flask context
-
-        fetch(`/streak/${userId}`)
-           .then(response => response.json())
-            .then(data => {
-                if (data.streak !== undefined) {
-                    document.querySelector('.num').textContent = data.streak;
-                } else {
-                    document.querySelector('.text').textContent = 'Error: User not found';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching streak:', error);
-                // document.querySelector('.text').textContent = 'Error fetching streak';
-        });
-    });
     
     var players = JSON.parse('{{ playersList|tojson|safe }}');
     autocomplete(document.getElementById("name"), players);
@@ -235,6 +217,18 @@
     let guessesLeft = 8; 
     let correctNum = 0;
     document.querySelector('.count').textContent = guessesLeft;
+
+    //show streak
+    const userId = ('{{ user_id|tojson|safe}}');
+    fetch('/' + userId + '/streak')
+        .then(response => response.json())
+        .then(data => {
+            document.querySelector('.num').textContent = data.streak;
+        })
+        .catch(error => {
+            console.error('Error fetching user streak:', error);
+        });
+
 
     document.addEventListener('DOMContentLoaded', () => {
         const form = document.querySelector('#form'); 
@@ -276,6 +270,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -283,7 +288,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
 
@@ -327,6 +340,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -334,7 +358,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
 
@@ -378,6 +410,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -385,7 +428,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
 
@@ -429,6 +480,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -436,7 +498,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
 
@@ -480,6 +550,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -487,7 +568,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
     
@@ -531,6 +620,17 @@
                 textElement3.style.visibility = 'visible';
             }
             if(correctNum === 6){
+                fetch('/' + userId + '/streak/update', {
+                    method: 'POST'
+                })
+                .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Failed to update streak');
+                }
+            })
+            .then(data => {
                 const textElement = document.querySelector('.text1');
                 const textElement2 = document.querySelector('.text22');
                 const textElement3 = document.querySelector('.time');
@@ -538,7 +638,15 @@
                 textElement.style.visibility = 'visible';
                 textElement2.style.visibility = 'visible';
                 textElement3.style.visibility = 'visible';
-            }
+                
+                // Update streak in HTML
+                const streakElement = document.querySelector('.num');
+                streakElement.textContent = data.new_streak;
+                })
+            .catch(error => {
+                console.error('Error updating streak:', error);
+                });
+            } 
         });
     });
     </script>

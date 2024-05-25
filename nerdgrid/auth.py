@@ -25,8 +25,8 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO user (username, password, streak) VALUES (?, ?, ?)",
+                    (username, generate_password_hash(password), 0),
                 )
                 db.commit()
             except db.IntegrityError:
@@ -53,7 +53,6 @@ def login():
             error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
-
         if error is None:
             session.clear()
             session['user_id'] = user['id']
